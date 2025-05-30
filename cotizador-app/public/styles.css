@@ -1,0 +1,374 @@
+/* ===== RESET Y ESTILOS BASE ===== */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  height: 100%;
+}
+
+/* ===== CONTENEDORES PRINCIPALES ===== */
+.background {
+  min-height: 100vh;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== TITULOS Y TEXTO ===== */
+.titulo {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+form h2 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.icon-label {
+  color: #004aad;
+  font-size: 20px;
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  counter-reset: step;
+}
+
+.progress-bar .step {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: #ddd;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 700;
+  color: #666;
+  cursor: default;
+  user-select: none;
+}
+
+.progress-bar .step.active {
+  background: #004aad;
+  color: white;
+  box-shadow: 0 0 8px #004aadaa;
+}
+
+/* Línea entre pasos */
+.progress-bar .step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 50px;
+  width: calc(100% - 40px);
+  height: 4px;
+  background: #ddd;
+  z-index: -1;
+}
+
+.progress-bar .step.active:not(:last-child)::after {
+  background: #004aad;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== PASOS DEL FORMULARIO ===== */
+.form-step {
+  display: none;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.form-step.active {
+  display: block;
+}
+
+/* ===== OPCIONES TIPO BOTONES CON ICONOS ===== */
+.options {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 25px 0 40px 0;
+  flex-wrap: wrap;
+}
+
+.option {
+  background: #e0e7ff;
+  border: none;
+  padding: 20px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #004aad;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgb(0 74 173 / 0.15);
+  transition: background 0.3s, box-shadow 0.3s;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.option:hover {
+  background: #c1caff;
+  box-shadow: 0 4px 14px rgb(0 74 173 / 0.3);
+}
+
+.option.selected {
+  background: #004aad;
+  color: white;
+  box-shadow: 0 0 12px #004aad;
+}
+
+/* Tamaño de iconos dentro de botones */
+.material-icons {
+  font-size: 28px;
+}
+
+/* ===== FORMULARIOS: INPUTS, SELECTS Y LABELS ===== */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+input[type=number], select {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1.8px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input[type=number]:focus, select:focus {
+  outline: none;
+  border-color: #004aad;
+}
+
+/* Input específico para email */
+#email {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1.8px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+#email:focus {
+  outline: none;
+  border-color: #004aad;
+}
+
+/* ===== BOTONES DE NAVEGACIÓN Y ACCIÓN ===== */
+.next, .prev, #btn-pdf, #btn-email, form button[type="submit"] {
+  background: #004aad;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 10px 5px 0 5px;
+  transition: background 0.3s;
+}
+
+.next:hover, .prev:hover, #btn-pdf:hover, #btn-email:hover, form button[type="submit"]:hover {
+  background: #00317a;
+}
+
+.prev {
+  background: #777;
+}
+
+.prev:hover {
+  background: #555;
+}
+
+/* Botón Confirmar envío en línea con input */
+#btn-email-send {
+  background: #004aad;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  display: block;
+  width: 100%;
+}
+
+#btn-email-send:hover {
+  background: #00317a;
+}
+
+/* Botón "Enviar por correo" */
+#btn-email-show {
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  margin-bottom: 10px;
+}
+
+#btn-email-show:hover {
+  background: #1e40af;
+}
+
+/* Contenedor para los botones de navegación (siguiente, anterior, etc) */
+.botones-navegacion {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ===== RESULTADO DE COTIZACIÓN ===== */
+#resultado {
+  background-color: #e0e7ff;
+  border: 1.8px solid #004aad;
+  padding: 20px 25px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: #004aad;
+  min-height: 100px;
+  box-shadow: 0 4px 12px rgba(0, 74, 173, 0.15);
+  margin-bottom: 20px;
+  white-space: pre-wrap; /* conserva saltos de línea */
+}
+
+/* ===== SECCIÓN EMAIL ===== */
+.email-section {
+  margin-bottom: 20px;
+}
+
+/* ===== ALERTAS ===== */
+.alerta {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 280px;
+  max-width: 320px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px 30px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.alerta.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.alerta .icono {
+  font-size: 28px;
+}
+
+/* Tipos de alerta para diferenciar visualmente */
+.alerta.info {
+  border-left: 6px solid #2196F3;
+}
+.alerta.error {
+  border-left: 6px solid #F44336;
+}
+.alerta.success {
+  border-left: 6px solid #4CAF50;
+}
+.alerta.loading {
+  border-left: 6px solid #FFC107;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 20px;
+  }
+  .titulo {
+    font-size: 2rem;
+  }
+  .option {
+    font-size: 1rem;
+    padding: 16px 20px;
+  }
+  .botones-navegacion {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .boton {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    margin: 8px 4px 0 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .options {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .option {
+    min-width: auto;
+    justify-content: flex-start;
+  }
+  /* Ajuste barra progreso en móvil */
+  .progress-bar .step:not(:last-child)::after {
+    width: 100%;
+    left: 20px;
+  }
+  .botones-navegacion {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .boton {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+    margin: 6px 0 0 0;
+  }
+}

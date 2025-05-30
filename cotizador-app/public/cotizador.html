@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!-- Metadatos básicos -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cotizador de Servicios</title>
+
+  <!-- Enlaces a estilos y fuentes -->
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="icon" href="icon.png" type="image/png">
+  
+  <!-- Librería jsPDF para generar PDFs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="background">
+    <div class="container">
+      <h1 class="titulo">Cotizador de Servicios</h1>
+
+      <!-- Barra de progreso de pasos -->
+      <nav aria-label="Progreso del formulario" class="progress-bar">
+        <div class="step active" aria-current="step" aria-label="Paso 1">1</div>
+        <div class="step" aria-label="Paso 2">2</div>
+        <div class="step" aria-label="Paso 3">3</div>
+      </nav>
+
+      <!-- Formulario principal en 3 pasos -->
+      <form id="formulario" novalidate>
+        <!-- Paso 1: Selección del tipo de servicio -->
+        <section class="form-step active" aria-live="polite" aria-labelledby="step1-title">
+          <h2 id="step1-title">¿Qué tipo de servicio necesitas?</h2>
+
+          <!-- Opciones tipo botón para elegir: Web o Datos -->
+          <div class="options" role="radiogroup" aria-required="true" aria-labelledby="step1-title">
+            <button type="button" class="option" data-value="web" aria-pressed="false" role="radio"
+              aria-label="Desarrollo Web">
+              <span class="material-icons" aria-hidden="true">code</span>
+              Desarrollo Web
+            </button>
+            <button type="button" class="option" data-value="datos" aria-pressed="false" role="radio"
+              aria-label="Análisis de Datos">
+              <span class="material-icons" aria-hidden="true">bar_chart</span>
+              Análisis de Datos
+            </button>
+          </div>
+
+          <!-- Campo oculto donde se guarda la opción seleccionada -->
+          <input type="hidden" name="tipo" id="tipo" required />
+
+          <!-- Botón para pasar al siguiente paso -->
+          <button type="button" class="next" aria-label="Siguiente paso">Siguiente</button>
+        </section>
+
+        <!-- Paso 2: Detalles específicos según el tipo -->
+        <section class="form-step" aria-live="polite" aria-labelledby="step2-title">
+          <!-- Opciones para Desarrollo Web -->
+          <div id="opciones-web" class="opciones" hidden>
+            <h2 id="step2-title-web">Detalles del desarrollo web</h2>
+
+            <!-- Grupo: Complejidad -->
+            <div class="form-group">
+              <label for="complejidad">
+                <span class="material-icons icon-label" aria-hidden="true">grading</span> Complejidad:
+              </label>
+              <select id="complejidad" name="complejidad" required>
+                <option disabled selected value="">Selecciona una complejidad</option>
+                <option value="baja">🟢 Baja</option>
+                <option value="media">🟠 Media</option>
+                <option value="alta">🔴 Alta</option>
+              </select>
+            </div>
+
+            <!-- Grupo: Plazo -->
+            <div class="form-group">
+              <label for="plazo">
+                <span class="material-icons icon-label" aria-hidden="true">schedule</span> Plazo (días):
+              </label>
+              <input type="number" id="plazo" name="plazo" min="1" placeholder="Ej: 30" required />
+            </div>
+
+            <!-- Grupo: Funcionalidad -->
+            <div class="form-group">
+              <label for="funcionalidad">
+                <span class="material-icons icon-label" aria-hidden="true">build</span> Funcionalidad:
+              </label>
+              <select id="funcionalidad" name="funcionalidad" required>
+                <option value="" disabled selected>Selecciona una funcionalidad</option>
+                <option value="auth">🔐 Autenticación de usuarios</option>
+                <option value="admin">📊 Panel de administración</option>
+                <option value="ecommerce">🛒 Carrito de compras</option>
+                <option value="pagos">💳 Integración de pagos</option>
+                <option value="blog">📝 Blog o noticias</option>
+              </select>
+            </div>
+
+            <!-- Grupo: Diseño -->
+            <div class="form-group">
+              <label for="diseno">
+                <span class="material-icons icon-label" aria-hidden="true">grading</span> Diseño:
+              </label>
+              <select id="diseno" name="diseno" required>
+                <option value="" disabled selected>Selecciona una opción de diseño</option>
+                <option value="responsive">📱 Diseño responsivo</option>
+                <option value="personalizado">🎨 Diseño personalizado</option>
+                <option value="oscuro">🌙 Modo oscuro</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Opciones para Análisis de Datos -->
+          <div id="opciones-datos" class="opciones" hidden>
+            <h2 id="step2-title-datos">Detalles del análisis de datos</h2>
+
+            <!-- Grupo: Tipo de análisis -->
+            <div class="form-group">
+              <label for="tipo-analisis">
+                <span class="material-icons icon-label" aria-hidden="true">analytics</span> Tipo de análisis:
+              </label>
+              <select id="tipo-analisis" name="tipo-analisis" required>
+                <option value="" disabled selected>Selecciona tipo de análisis</option>
+                <option value="descriptivo">📊 Descriptivo</option>
+                <option value="predictivo">🔮 Predictivo</option>
+                <option value="prescriptivo">📈 Prescriptivo</option>
+                <option value="visualizacion">🎨 Visualización avanzada</option>
+              </select>
+            </div>
+
+            <!-- Grupo: Volumen de datos -->
+            <div class="form-group">
+              <label for="volumen">
+                <span class="material-icons icon-label" aria-hidden="true">stacked_bar_chart</span> Volumen de datos:
+              </label>
+              <select id="volumen" name="volumen" required>
+                <option value="" disabled selected>Selecciona el volumen de datos</option>
+                <option value="pequeno">🟢 Pequeño</option>
+                <option value="mediano">🟠 Mediano</option>
+                <option value="grande">🔴 Grande</option>
+              </select>
+            </div>
+
+            <!-- Grupo: Visualizaciones -->
+            <div class="form-group">
+              <label for="visualizaciones">
+                <span class="material-icons icon-label" aria-hidden="true">insights</span> Visualizaciones requeridas:
+              </label>
+              <input type="number" id="visualizaciones" name="visualizaciones" min="1" placeholder="Ej: 100" required />
+            </div>
+
+            <!-- Grupo: Frecuencia -->
+            <div class="form-group">
+              <label for="frecuencia">
+                <span class="material-icons icon-label" aria-hidden="true">calendar_today</span> Frecuencia de entrega:
+              </label>
+              <select id="frecuencia" name="frecuencia" required>
+                <option value="" disabled selected>Selecciona frecuencia</option>
+                <option value="una">📅 Una vez</option>
+                <option value="semanal">🗓️ Semanal</option>
+                <option value="mensual">📆 Mensual</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Navegación entre pasos -->
+          <div class="botones-navegacion">
+            <button type="button" class="prev" aria-label="Paso anterior">Atrás</button>
+            <button type="button" class="next" aria-label="Siguiente paso">Siguiente</button>
+          </div>
+        </section>
+
+        <!-- Paso 3: Resultado de la cotización -->
+        <section class="form-step" aria-live="polite" aria-labelledby="step3-title">
+          <h2 id="step3-title">Resultado de Cotización</h2>
+
+          <!-- Contenedor para mostrar el precio calculado -->
+          <div id="resultado" tabindex="0" aria-live="polite"></div>
+
+          <!-- Sección para enviar cotización por correo -->
+          <div class="email-section">
+            <button type="button" id="btn-email-show" aria-expanded="false" aria-controls="email-container">
+              Enviar por correo
+            </button>
+
+            <!-- Campo de email oculto inicialmente -->
+            <div id="email-container" class="email-section" style="display: none;">
+              <label for="email">
+                <span class="material-icons icon-label" aria-hidden="true">email</span>
+                Correo electrónico:
+              </label>
+              <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required
+                autocomplete="email" />
+              <button type="button" id="btn-email-send">Confirmar envío</button>
+            </div>
+          </div>
+
+          <!-- Botones finales -->
+          <div class="botones-navegacion">
+            <button type="button" class="prev" aria-label="Paso anterior">Atrás</button>
+            <button type="submit">Finalizar</button>
+            <button type="button" id="btn-pdf" aria-label="Descargar PDF de cotización">Descargar PDF</button>
+          </div>
+        </section>
+      </form>
+
+      <!-- Contenedor para alertas de validación u otros mensajes -->
+      <div id="alerta" class="alerta oculto" role="alert" aria-live="assertive"></div>
+    </div>
+
+    <!-- Script principal -->
+    <script src="script.js"></script>
+  </div>
+</body>
+
+</html>
